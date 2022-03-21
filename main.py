@@ -1,9 +1,8 @@
 import gliff_sdk as gliff
 import numpy as np
 from skimage import img_as_float
-from skimage.segmentation import (morphological_geodesic_active_contour,
-                                  inverse_gaussian_gradient,
-                                  checkerboard_level_set)
+from skimage.filters import threshold_otsu
+from skimage.measure import find_contours
 
 class Plugin:
     def __init__(self):
@@ -31,21 +30,30 @@ class Plugin:
         # Convert image to float
         image = img_as_float(image)
 
-        # Calculate gradient image
-        gradient_image = inverse_gaussian_gradient(image)
+        thresh = threshold_otsu(image)
+        
+        mask = image > thresh
 
-        # Initial level set
-        initial_level_set = np.zeros(image.shape, dtype=np.int8)
-        initial_level_set[10:-10, 10:-10] = 1
+        level_set = find_contours(mask, level = 0)
 
-        # List with intermediate results for plotting the evolution
-        level_set = morphological_geodesic_active_contour(gradient_image,
-                                                          num_iter=230,
-                                                init_level_set=initial_level_set,
-                                                smoothing=1, balloon=-1,
-                                                threshold=0.69)
-
-        # add level set to annotations as spline
         gliff.add_annotation(annotations, level_set, toolbox="spline")
+
+
+        # # Calculate gradient image
+        # gradient_image = inverse_gaussian_gradient(image)
+
+        # # Initial level set
+        # initial_level_set = np.zeros(image.shape, dtype=np.int8)
+        # initial_level_set[10:-10, 10:-10] = 1
+
+        # # List with intermediate results for plotting the evolution
+        # level_set = morphological_geodesic_active_contour(gradient_image,
+        #                                                   num_iter=230,
+        #                                         init_level_set=initial_level_set,
+        #                                         smoothing=1, balloon=-1,
+        #                                         threshold=0.69)
+
+        # # add level set to annotations as spline
+        # gliff.add_annotation(annotations, level_set, toolbox="spline")
 
         return image, metadata, annotations

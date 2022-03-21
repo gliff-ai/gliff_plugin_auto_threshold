@@ -1,8 +1,8 @@
 {
-  "ui": {
-    "title": "GAC",
-    "description": "Morphological Geodesic Active Contour Segmentation",
-    "icon": "fa-bacon",
-    "active-in": ["annotate"]
-  }
+    "ui": {
+        "title": "GAC",
+        "description": "Threshold otsu segmentation",
+        "icon": "fa-bacon",
+        "active-in": ["annotate"]
+    }
 }

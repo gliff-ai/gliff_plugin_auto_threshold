@@ -1,5 +1,6 @@
 .vscode
 .env
+env
 .venv
 *.pptx
 nanoparticle_images
