@@ -1,6 +1,6 @@
 {
     "ui": {
-        "title": "GAC",
+        "title": "TS",
         "description": "Threshold otsu segmentation",
         "icon": "fa-bacon",
         "active-in": ["annotate"]
