@@ -2,7 +2,7 @@ import gliff_sdk as gliff
 import numpy as np
 from skimage import img_as_float
 from skimage.filters import threshold_otsu
-from skimage.measure import find_contours
+from skimage.measure import find_contours, regionprops_table, label
 
 class Plugin:
     def __init__(self):
@@ -33,10 +33,12 @@ class Plugin:
         thresh = threshold_otsu(image)
         
         mask = image > thresh
+        
+        particle_measurements = regionprops_table(label(mask),properties=('label','equivalent_daimeter'))# we are also interested in the numbers that we get from this, is there a way to get this csv file out ? 
 
         level_set = find_contours(mask, level = 0)
 
-        gliff.add_annotation(annotations, level_set, toolbox="spline")
+        gliff.add_annotation(annotations, level_set, toolbox="spline") # not sure if the is the correct way to display the mask data - just following the example from below
 
 
         # # Calculate gradient image
