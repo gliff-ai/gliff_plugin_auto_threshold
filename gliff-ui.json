@@ -1,8 +1,15 @@
 {
-    "ui": {
-        "title": "TS",
-        "description": "Threshold otsu segmentation",
-        "icon": "fa-bacon",
-        "active-in": ["annotate"]
-    }
-}
+    "trustedService": "Threshold otsu segmentation",
+    "uiElements": [
+      {
+        "apiEndpoint": "/run/",
+        "uiParams": {
+          "tag": "button",
+          "value": "TS",
+          "icon": "fa-bacon",
+          "tooltip": "Threshold otsu segmentation"
+        },
+        "placement": ["annotate"]
+      }
+    ]
+  }
